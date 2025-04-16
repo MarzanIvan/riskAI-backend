@@ -79,3 +79,5 @@ class CreditForm(BaseModel):
 async def submit_credit_form(data: CreditForm):
 
     return 3
+
+## to start uvicorn main:app --host 0.0.0.0 --port 8000
