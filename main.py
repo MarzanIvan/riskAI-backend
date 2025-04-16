@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
+import httpx  # для отправки HTTP-запросов
 
 app = FastAPI()
+
+# URL AI-модели
+AI_MODEL_URL = "http://localhost:4000/predict"  # Заменить на актуальный адрес AI
 
 # ----------------- Инвестиции ------------------
 class InvestmentForm(BaseModel):
@@ -15,8 +19,19 @@ class InvestmentForm(BaseModel):
 
 @app.post("/api/submit_investment/")
 async def submit_investment(data: InvestmentForm):
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(AI_MODEL_URL, json=data.dict())
+            response.raise_for_status()
+            ai_result = response.json()
+        except Exception as e:
+            return {"error": "AI модель недоступна", "detail": str(e)}
 
-    return 1
+    return {
+        "status": "success",
+        "input": data,
+        "ai_result": ai_result
+    }
 
 # ----------------- Страхование ------------------
 class Policyholder(BaseModel):
@@ -64,8 +79,19 @@ class InsuranceForm(BaseModel):
 
 @app.post("/api/insurance_form/")
 async def submit_insurance_form(data: InsuranceForm):
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(AI_MODEL_URL, json=data.dict())
+            response.raise_for_status()
+            ai_result = response.json()
+        except Exception as e:
+            return {"error": "AI модель недоступна", "detail": str(e)}
 
-    return 2
+    return {
+        "status": "success",
+        "input": data,
+        "ai_result": ai_result
+    }
 
 # ----------------- Кредитование ------------------
 class CreditForm(BaseModel):
@@ -77,7 +103,18 @@ class CreditForm(BaseModel):
 
 @app.post("/api/credit_form/")
 async def submit_credit_form(data: CreditForm):
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.post(AI_MODEL_URL, json=data.dict())
+            response.raise_for_status()
+            ai_result = response.json()
+        except Exception as e:
+            return {"error": "AI модель недоступна", "detail": str(e)}
 
-    return 3
+    return {
+        "status": "success",
+        "input": data,
+        "ai_result": ai_result
+    }
 
-## to start uvicorn main:app --host 0.0.0.0 --port 8000
+## Запуск: uvicorn main:app --host 0.0.0.0 --port 8000
