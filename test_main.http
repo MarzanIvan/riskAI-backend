@@ -1,11 +1,72 @@
-# Test your FastAPI endpoints
+### Тест: Отправка формы инвестиций
+POST http://localhost:8000/api/submit_investment/
+Content-Type: application/json
 
-GET http://127.0.0.1:8000/
-Accept: application/json
+{
+  "f_Text": "Инвестиции в проект X",
+  "f_Target": "Увеличить капитал",
+  "f_Company": "ООО ИнвестПлюс",
+  "f_Name": "Иван Иванов",
+  "f_Phone": "+79991234567",
+  "f_Mail": "ivan@example.com"
+}
 
 ###
 
-GET http://127.0.0.1:8000/hello/User
-Accept: application/json
+### Тест: Отправка формы страхования
+POST http://localhost:8000/api/insurance_form/
+Content-Type: application/json
+
+{
+  "policyholder": {
+    "name": "Петр Петров",
+    "age": "35",
+    "gender": "male",
+    "smoker": false,
+    "region": "Москва",
+    "history_of_claims": "Нет",
+    "previous_claims_amount": "0"
+  },
+  "insurance_policy": {
+    "policy_id": "POL123456",
+    "type": "Авто",
+    "coverage_amount": "500000",
+    "premium": "10000",
+    "start_date": "2024-01-01",
+    "end_date": "2025-01-01"
+  },
+  "underwriting_data": {
+    "number_of_claims_this_year": "0",
+    "days_between_policy_and_first_claim": "0",
+    "duplicate_contact_info_found": false,
+    "vin_suspect": false,
+    "claim_amount": "0",
+    "loss_ratio": "0.0",
+    "behavior_pattern": "Нормальное поведение"
+  },
+  "financial_metrics": {
+    "total_premium_collected": "5000000",
+    "total_claims_paid": "2000000",
+    "active_policies": "1000",
+    "technical_reserves": "3000000",
+    "eligible_own_funds": "2500000",
+    "scr": "1500000",
+    "solvency_ratio": "1.67",
+    "financial_assets": "8000000",
+    "liabilities": "3000000"
+  }
+}
 
 ###
+
+### Тест: Отправка формы кредитования
+POST http://localhost:8000/api/credit_form/
+Content-Type: application/json
+
+{
+  "fio": "Сидоров Сидор Сидорович",
+  "passport": "1234 567890",
+  "income": 75000.50,
+  "requested_amount": 500000,
+  "term": 24
+}

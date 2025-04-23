@@ -4,8 +4,6 @@ from typing import Optional
 import httpx  # для отправки HTTP-запросов
 from fastapi.middleware.cors import CORSMiddleware
 
-
-
 app = FastAPI()
 
 # URL AI-модели
@@ -13,7 +11,7 @@ AI_MODEL_URL = "http://localhost:4000/predict"  # Заменить на акту
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://riskai.ru"],  # или конкретный домен
+    allow_origins=["*"],  # или конкретный домен
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
